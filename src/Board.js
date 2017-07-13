@@ -79,12 +79,28 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var row = this.get(rowIndex);
+      var count = 0;
+      row.forEach(function(item) {
+        if (item === 1) {
+          count++;
+        }
+      });
+      return count > 1; 
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var n = this.get('n');
+      //run for as many rows as there are
+      for (var i = 0; i < n; i++) {
+        //check if each row has conflict
+        if ( this.hasRowConflictAt(i) ) {
+        //if so return true 
+          return true;
+        }
+      }//end for 
+      return false;                                                                                                                                                  return false; // fixme
     },
 
 
@@ -94,12 +110,31 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var column = [];
+      for (var i = 0; i < this.get('n'); i++) {
+        column.push(this.get(i)[colIndex]);
+      }
+      var count = 0;
+      column.forEach(function(item) {
+        if (item === 1) {
+          count++;
+        }
+      }); 
+      return count > 1; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      var n = this.get('n');
+      //run for as many rows as there are
+      for (var i = 0; i < n; i++) {
+        //check if each row has conflict
+        if ( this.hasColConflictAt(i) ) {
+        //if so return true 
+          return true;
+        }
+      }//end for 
+      return false; 
     },
 
 
@@ -109,12 +144,69 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var majorDiagonal = [];
+      var count = 0; 
+      //this.get(0)[majorDiagonalColumnIndexAtFirstRow];
+      var indexRow = 0;
+      for (var indexCol = majorDiagonalColumnIndexAtFirstRow; indexCol < this.get('n'); indexCol++) {
+        //place element into array
+        majorDiagonal.push(this.get(indexRow)[indexCol]);
+        indexRow++;
+      }
+      //check if major diagonal conflict has occured
+      majorDiagonal.forEach(function(item) {
+        if (item === 1) {
+          count++;
+        }
+      });
+      return count > 1; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+
+      console.log('---------------------------');
+      console.log(JSON.stringify(this.get(0)));
+      console.log(JSON.stringify(this.get(1)));
+      console.log(JSON.stringify(this.get(2)));
+      console.log(JSON.stringify(this.get(3)));
+
+
+      var result = false;
+      debugger;
+      // loop and call firstRow diagnostic function
+      for (var i = 0; i < this.get('n'); i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          // if true, return true;
+          result = true;
+        }
+        
+      }
+
+      for (var i = 1; i < this.get('n'); i++) {
+        // declare major diagonal array starting row i
+        var majorDiagonal = [];
+        // set temporary row index that will not increment when looping j
+        var tempRowIndex = i;
+        // set counter for each diagonal
+        var count = 0;
+        for (var j = 0; j < tempRowIndex; j++) { // loops diagonal
+          // push each diagonal item
+          majorDiagonal.push(this.get(tempRowIndex)[j]);
+          tempRowIndex++;
+          
+        }
+        majorDiagonal.forEach(function(item) { // loop through on diagonal array and check conflict
+          if (item === 1) {
+            count++;
+          }
+        });
+        if (count > 1) {
+          result = true;
+        }
+      }
+
+      return result; // fixme
     },
 
 

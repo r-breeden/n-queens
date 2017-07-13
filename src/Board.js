@@ -148,9 +148,14 @@
       var count = 0; 
       //this.get(0)[majorDiagonalColumnIndexAtFirstRow];
       var indexRow = 0;
-      for (var indexCol = majorDiagonalColumnIndexAtFirstRow; indexCol < this.get('n'); indexCol++) {
+      //length of board 
+      var n = this.get('n');
+      for (var indexCol = majorDiagonalColumnIndexAtFirstRow; indexCol < n && indexRow < n; indexCol++) {
         //place element into array
-        majorDiagonal.push(this.get(indexRow)[indexCol]);
+        if ( this.get(indexRow)[indexCol] ) {
+          majorDiagonal.push(this.get(indexRow)[indexCol]);
+        }
+        //iterate array in prep for next check
         indexRow++;
       }
       //check if major diagonal conflict has occured
@@ -172,7 +177,7 @@
       // console.log(JSON.stringify(this.get(3)));
 
       // loop and call firstRow diagnostic function
-      for (var i = 0; i < this.get('n'); i++) {
+      for (var i = -3; i < this.get('n'); i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
           // if true, return true;
           return true;
@@ -180,28 +185,28 @@
         
       }
 
-      for (var i = 1; i < this.get('n'); i++) {
-        // declare major diagonal array starting row i
-        var majorDiagonal = [];
-        // set temporary row index that will not increment when looping j
-        var tempRowIndex = i;
-        // set counter for each diagonal
-        var count = 0;
-        for (var j = 0; j < this.get('n') && tempRowIndex < this.get('n'); j++) { // loops diagonal
-          // push each diagonal item
-          majorDiagonal.push(this.get(tempRowIndex)[j]);
-          tempRowIndex++;
+      // for (var i = 1; i < this.get('n'); i++) {
+      //   // declare major diagonal array starting row i
+      //   var majorDiagonal = [];
+      //   // set temporary row index that will not increment when looping j
+      //   var tempRowIndex = i;
+      //   // set counter for each diagonal
+      //   var count = 0;
+      //   for (var j = 0; j < this.get('n') && tempRowIndex < this.get('n'); j++) { // loops diagonal
+      //     // push each diagonal item
+      //     majorDiagonal.push(this.get(tempRowIndex)[j]);
+      //     tempRowIndex++;
           
-        }
-        majorDiagonal.forEach(function(item) { // loop through on diagonal array and check conflict
-          if (item === 1) {
-            count++;
-          }
-        });
-        if (count > 1) {
-          return true;
-        }
-      }
+      //   }
+      //   majorDiagonal.forEach(function(item) { // loop through on diagonal array and check conflict
+      //     if (item === 1) {
+      //       count++;
+      //     }
+      //   });
+      //   if (count > 1) {
+      //     return true;
+      //   }
+      // }
 
       return false; // fixme
     },
@@ -216,10 +221,17 @@
       var minorDiagonal = [];
       var count = 0; 
       //this.get(0)[majorDiagonalColumnIndexAtFirstRow];
-      var indexRow = minorDiagonalColumnIndexAtFirstRow;
-      for (var indexCol = this.get('n') - 1; indexRow < this.get('n') && indexCol >= 0; indexCol--) {
-        //place element into array
-        minorDiagonal.push(this.get(indexRow)[indexCol]);
+      var indexCol = minorDiagonalColumnIndexAtFirstRow;
+      var n = this.get('n');
+      var indexRow = 0;
+      for (var indexCol = minorDiagonalColumnIndexAtFirstRow; indexCol >= 0 && indexRow < n; indexCol--) {
+        // if indexCol is greater than or equal to n, the value at this.get wll be undefined, so we only push when defined
+        //undefined values are off of the board 
+        if (this.get(indexRow)[indexCol]) {
+          //place element into array
+          minorDiagonal.push(this.get(indexRow)[indexCol]);
+        }
+        
         indexRow++;
       }
       //check if major diagonal conflict has occured
@@ -241,10 +253,10 @@
       console.log(JSON.stringify(this.get(2)));
       console.log(JSON.stringify(this.get(3)));
       
-      debugger;
+      
       var n = this.get('n');
 
-      for (var i = 0; i < n; i++) {
+      for (var i = 0; i < 2 * n - 1; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           // if true, return true;
           return true;
@@ -252,30 +264,30 @@
         
       }
 
-      for (var i = 0; i < n; i++) {
-        // declare major diagonal array starting row i
-        var minorDiagonal = [];
-        // set temporary row index that will not increment when looping j
-        var tempRowIndex = i;
-        // set counter for each diagonal
-        var count = 0;
-        //j refers to column
+      // for (var i = 0; i < n; i++) {
+      //   // declare major diagonal array starting row i
+      //   var minorDiagonal = [];
+      //   // set temporary row index that will not increment when looping j
+      //   var tempRowIndex = i;
+      //   // set counter for each diagonal
+      //   var count = 0;
+      //   //j refers to column
         
-        for (var columnIndex = n - 2; columnIndex >= 0 && tempRowIndex < n; columnIndex--) { // loops diagonal
-          // push each diagonal item
-          minorDiagonal.push(this.get(tempRowIndex)[columnIndex]);
-          tempRowIndex++;
+      //   for (var columnIndex = n - 2; columnIndex >= 0 && tempRowIndex < n; columnIndex--) { // loops diagonal
+      //     // push each diagonal item
+      //     minorDiagonal.push(this.get(tempRowIndex)[columnIndex]);
+      //     tempRowIndex++;
           
-        }
-        minorDiagonal.forEach(function(item) { // loop through on diagonal array and check conflict
-          if (item === 1) {
-            count++;
-          }
-        });
-        if (count > 1) {
-          return true;
-        }
-      }
+      //   }
+      //   minorDiagonal.forEach(function(item) { // loop through on diagonal array and check conflict
+      //     if (item === 1) {
+      //       count++;
+      //     }
+      //   });
+      //   if (count > 1) {
+      //     return true;
+      //   }
+      // }
 
       return false; // fixme
     }

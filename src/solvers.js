@@ -16,7 +16,7 @@
 
 
 window.findNRooksSolution = function(n) {
-  debugger;
+  
   var solution = [];
   //recursive function
   //declare a function that accepts depth and memoArray  which recursively adds rook(s)
@@ -44,21 +44,18 @@ window.findNRooksSolution = function(n) {
             //i - (n - 1) + j = index of the item we want to push from memoArray 
             row.push(memoArray[i - (n - 1) + j]);
           }
+          //row is complete push it onto our matrix array
           matrix.push(row);
         }
-        
       } 
       //push to solution
       possibleSolutions.push(matrix);
         
     } else if (memoArray.length === n * n) {
-
       //do nothing
-
     } else { //ELSE recusive case (when depth is not zero)
       //case when we place a rook
       recursive(depth - 1, memoArray.concat([1]));
-      
       //case when we do NOT place a rook
       recursive(depth, memoArray.concat([0]));
     }
@@ -76,7 +73,11 @@ window.findNRooksSolution = function(n) {
       
     var tempBoard = new Board(possibleSolutions[x]);
     //if true return matrix
-    if ( tempBoard.hasAnyRooksConflicts ) {
+    //RAB// added '()' to end of hasAnyRooksConflicts
+    console.log('DISCO');
+    console.log(tempBoard.hasAnyRooksConflicts());
+    if ( tempBoard.hasAnyRooksConflicts() ) {
+      
       console.log('Single solution for ' + n + ' rooks:', JSON.stringify(tempBoard));
       return tempBoard;
     }

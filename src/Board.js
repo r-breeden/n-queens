@@ -81,6 +81,7 @@
     hasRowConflictAt: function(rowIndex) {
       var row = this.get(rowIndex);
       var count = 0;
+  
       row.forEach(function(item) {
         if (item === 1) {
           count++;
@@ -100,7 +101,9 @@
           return true;
         }
       }//end for 
-      return false;                                                                                                                                                  return false; // fixme
+
+      return false;   
+    
     },
 
 
@@ -247,11 +250,11 @@
     hasAnyMinorDiagonalConflicts: function() {
 
       
-      console.log('---------------------------');
-      console.log(JSON.stringify(this.get(0)));
-      console.log(JSON.stringify(this.get(1)));
-      console.log(JSON.stringify(this.get(2)));
-      console.log(JSON.stringify(this.get(3)));
+      // console.log('---------------------------');
+      // console.log(JSON.stringify(this.get(0)));
+      // console.log(JSON.stringify(this.get(1)));
+      // console.log(JSON.stringify(this.get(2)));
+      // console.log(JSON.stringify(this.get(3)));
       
       
       var n = this.get('n');

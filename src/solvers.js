@@ -89,7 +89,7 @@ window.findNRooksSolution = function(n, check) {
       return possibleSolutions[x];
     }
   }
-  //this.count = possibleSolutions.length;
+  
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
@@ -115,11 +115,11 @@ window.countNRooksSolutions = function(n) {
 window.findNQueensSolution = function(n, check) {
   var possibleSolutions = [];
   
-  //RAB//
+
   //board size of 2 has no solution
-  if ( n === 2 ) { return [[0,0],[0,0]]; }   
+  if ( n === 2 ) { return [[0, 0], [0, 0]]; }   
   //board size of 3 has no solution
-  if ( n === 3 ) { return [[0,0,0],[0,0.0],[0,0,0]]; }  
+  if ( n === 3 ) { return [[0, 0, 0], [0, 0, 0], [0, 0, 0]]; }  
 
 
   //building matrix 
@@ -193,6 +193,9 @@ window.findNQueensSolution = function(n, check) {
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
 
+  if ( n === 2 || n === 3) { 
+    return 0;
+  } 
   var possibleSolutions = findNQueensSolution(n, true);
   var count = 0;
   for (var x = 0; x < possibleSolutions.length; x++) {
